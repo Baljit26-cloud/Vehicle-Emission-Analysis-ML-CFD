@@ -1,62 +1,56 @@
-# Vehicle CO2 Emission Analysis: A Dual CFD & Machine Learning Approach
+# 🚗 Vehicle Emissions: Physics (CFD) + Data Science (ML)
 
-This project integrates **Computational Flow Dynamics (CFD)** and **Supervised Machine Learning** to analyze and predict vehicle CO2 emissions. It demonstrates a complete engineering workflow by combining high-temperature thermal simulations with predictive data science.
+This project is an end-to-end engineering workflow. I wanted to bridge the gap between **hardware simulation** (how gas actually moves) and **software prediction** (predicting CO2 based on vehicle specs). 
 
-## 🚀 Live Demo
-Access the interactive prediction app here: **[https://vehicle-emission-analysis-ml-cfd-ns9ha9hyzu7kramsv8tmjt.streamlit.app/]**
-
----
-
-## 🛠️ Project Overview
-
-### 1. Predictive Modeling (Machine Learning)
-* **Algorithm**: Random Forest Regressor (1,000 Estimators).
-* **Performance**: Achieved an accuracy of **97.23%**.
-* **Features**: Engine Size, Cylinders, Fuel Consumption (City, Highway, Combined).
-* **Deployment**: Interactive UI built using **Streamlit** for real-time predictions.
-
-### 2. Thermal Analysis (CFD)
-* **Software**: ANSYS Fluent 2025 R2 Student Edition.
-* **Boundary Conditions**:
-    * **Inlet Velocity**: 10 m/s.
-    * **Inlet Temperature**: 925 K (BMW 2.0L Standard).
-    * **Outlet**: Pressure-outlet (0 Gauge Pressure).
-* **Key Results**:
-    * **Mass Flow Conservation**: Net mass flow rate achieved is **0.1690188 kg/s**.
-    * **Convergence**: Solution stabilized at 200 iterations with flat residuals.
+### 🔗 [Check out the Live Predictor App here!](https://vehicle-emission-analysis-ml-cfd-ns9ha9hyzu7kramsv8tmjt.streamlit.app/)
 
 ---
 
-## 🧪 Chemical Engineering Perspective
-Applied core concepts of **Transport Phenomena**:
-* **Fluid Mechanics**: Analyzed pressure drops and velocity magnitudes up to 57 m/s.
-* **Heat Transfer**: Modeled thermal energy distribution across the manifold.
-* **Mass Balance**: Verified conservation between 3 inlets and 1 outlet.
+## 🛠️ The Tech Stack
+* **Physics:** ANSYS Fluent 2025 R2 (CFD)
+* **Machine Learning:** Python (Scikit-learn, Pandas)
+* **Deployment:** Streamlit
+* **Dataset:** Vehicle CO2 Emissions (Kaggle)
 
 ---
 
-## 📈 Results & Visuals
+## 🧠 Part 1: Predictive Modeling (ML)
+I built a **Random Forest Regressor** to predict CO2 emissions. 
 
-### 1. Convergence Plot
-The residuals for energy and velocity stabilized perfectly, ensuring a reliable numerical solution.
+* **The Struggle:** The raw data was noisy. I had to use the **Interquartile Range (IQR) method** to strip out outliers that were skewing the results. 
+* **Results:** Hit **97.23% accuracy** across 1,000 estimators. 
+* **Features:** Engine Displacement, Cylinders, and Fuel Consumption (City/Hwy/Combined).
 
+## 💨 Part 2: Thermal Simulation (CFD)
+I modeled a **BMW 2.0L Exhaust Manifold** to understand the "why" behind the heat.
 
-### 2. Temperature Contour
-Visualized the thermal gradient from the 925 K inlets through the manifold body.
-
-
-### 3. Velocity Pathlines
-Pathlines illustrate how gases from the three inlets mix and exit through the single outlet.
-
+* **Boundary Conditions:** 3 inlets at **925 K** (standard engine temp) and **10 m/s** velocity.
+* **The Math:** Mass flow rate stabilized at **0.169 kg/s**. I verified the mass balance manually to make sure the simulation wasn't "leaking" air.
+* **Convergence:** Took about 200 iterations for the velocity and energy residuals to go flat.
 
 ---
 
-## 🔧 Installation
-1. Clone the repo: `git clone https://github.com/YourUsername/YourRepo.git`
-2. Install dependencies: `pip install -r requirements.txt`
-3. Run: `streamlit run Emission_app.py`
+## 🧪 Chemical Engineering Lens
+I treated the manifold as a **Transport Phenomena** problem:
+1.  **Fluid Mechanics:** Tracked pressure drops and velocity spikes (maxing at 57 m/s). 🌊
+2.  **Heat Transfer:** Visualized the thermal gradient from the 925 K source through the manifold body. 🌡️
+3.  **Mass Balance:** Verified $Inlets = Outlet$ to ensure physical conservation. ⚖️
 
-## 💡 Key Learnings
-* Overcame the steep learning curve of **ANSYS mesh generation**.
-* Handled outliers in the Kaggle dataset using **IQR** for better model reliability.
-* Successfully bridged the gap between a hardware simulation (CFD) and software prediction (ML).
+---
+
+## 📊 Visuals & Results
+
+### 🔗 [Check out the PDF!](https://drive.google.com/file/d/1lRNSuAa8AQotasq1_9pgicawBCcaUUlF/view?usp=drivesdk)
+
+
+## 💡 What I actually learned (The "Real" Version)
+* **ANSYS Meshing:** I spent 80% of my time fixing the mesh and 20% actually running the simulation. If the mesh is bad, the physics is garbage. 🏗️
+* **Data Cleaning > Hyperparameters:** You can tune a model forever, but removing the outliers with IQR was what actually fixed my accuracy. 🧹
+* **Full Picture:** Engineering isn't just one niche. Combining CFD with ML gives you a much better "macro" view of how a vehicle performs.
+
+---
+
+## ⚙️ Setup & Installation
+1. `git clone https://github.com/YourUsername/YourRepo.git`
+2. `pip install -r requirements.txt`
+3. `streamlit run Emission_app.py`
